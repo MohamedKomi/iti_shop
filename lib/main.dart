@@ -1,4 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/products.dart';
+import './screens/product_overview_screen.dart';
+import './screens/splash_screen.dart';
+import './providers/auth.dart';
+import './providers/cart.dart';
+import './providers/orders.dart';
+import './screens/edit_product_screen.dart';
+import './screens/orders_screen.dart';
+import './screens/auth_screen.dart';
+import './screens/user_products_screen.dart';
+import './screens/cart_screen.dart';
+import './screens/product_detail_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,68 +20,50 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-
-        title: Text(widget.title),
-      ),
-      body: Center(
-
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: Auth()),
+        ChangeNotifierProvider.value(value: Cart()),
+        ChangeNotifierProxyProvider<Auth, Products>(
+            create: (_) => Products(),
+            update: (ctx, authValue, previousProducts) => previousProducts!
+              ..getData(authValue.userId.toString(), authValue.token.toString(),
+                  previousProducts.items)),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+            create: (_) => Orders(),
+            update: (ctx, authValue, previousOrders) => previousOrders!
+              ..getData(authValue.userId.toString(), authValue.token.toString(),
+                  previousOrders.orders)),
+      ],
+      child: Consumer<Auth>(
+        builder: (ctx, auth, _) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch: Colors.purple,
+              accentColor: Colors.deepOrange,
+              fontFamily: 'Lato',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+            home: auth.isAuth
+                ? const ProductOverviewScreen()
+                : FutureBuilder(
+                future: auth.tryAutoLogIn(),
+                builder: (ctx, AsyncSnapshot snapshot) =>
+                snapshot.connectionState == ConnectionState.waiting
+                    ?  SplashScreen()
+                    : const AuthScreen()),
+            routes: {
+              ProductDetailScreen.routName: (_) => const ProductDetailScreen(),
+              CartScreen.routName: (_) => const CartScreen(),
+              UserProductScreen.routName: (_) => const UserProductScreen(),
+              OrdersScreen.routName: (_) => const OrdersScreen(),
+              EditProductScreen.routName: (_) => const EditProductScreen(),
+            },
+          );
+        },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
