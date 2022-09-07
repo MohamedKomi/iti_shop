@@ -38,15 +38,6 @@ class AppDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text("LogOut"),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed('/');
-                Provider.of<Auth>(context, listen: false).logout();
-              }),
-          const Divider(),
-          ListTile(
               leading: const Icon(Icons.info_outline),
               title: const Text("About the application"),
               onTap: () {}),
@@ -55,6 +46,17 @@ class AppDrawer extends StatelessWidget {
               leading: const Icon(Icons.group),
               title: const Text("About the team "),
               onTap: () => {}),
+          const Divider(
+            color: Colors.red,
+          ),
+          ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("LogOut"),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/');
+                Provider.of<Auth>(context, listen: false).logout();
+              }),
         ],
       ),
     );

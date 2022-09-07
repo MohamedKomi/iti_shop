@@ -118,7 +118,7 @@ class _AuthCardState extends State<AuthCard>
       begin: 0.0,
       end: 1.0,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
-    Provider.of<Auth>(context,listen: false).tryAutoLogIn();
+    Provider.of<Auth>(context, listen: false).tryAutoLogIn();
 
     super.initState();
   }
@@ -163,7 +163,8 @@ class _AuthCardState extends State<AuthCard>
       _showErrorDialog(errorMessage);
     } catch (error) {
       print(error);
-      const errorMessage = 'Could not authenticate you, please try again later!';
+      const errorMessage =
+          'Could not authenticate you, please try again later!';
 
       _showErrorDialog(errorMessage);
     }
@@ -176,15 +177,15 @@ class _AuthCardState extends State<AuthCard>
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text("An error occurred!"),
-          content: Text(message),
-          actions: [
-            FlatButton(
-              child: const Text("Okay!"),
-              onPressed: () => Navigator.of(ctx).pop(),
-            ),
-          ],
-        ));
+              title: const Text("An error occurred!"),
+              content: Text(message),
+              actions: [
+                FlatButton(
+                  child: const Text("Okay!"),
+                  onPressed: () => Navigator.of(ctx).pop(),
+                ),
+              ],
+            ));
   }
 
   void switchAuthMode() {
@@ -270,11 +271,11 @@ class _AuthCardState extends State<AuthCard>
                         obscureText: true,
                         validator: _authMode == AuthMode.SignUp
                             ? (val) {
-                          if (val != _passwordController.text) {
-                            return "Password do not match";
-                          }
-                          return null;
-                        }
+                                if (val != _passwordController.text) {
+                                  return "Password do not match";
+                                }
+                                return null;
+                              }
                             : null,
                       ),
                     ),
@@ -290,7 +291,7 @@ class _AuthCardState extends State<AuthCard>
                     borderRadius: BorderRadius.circular(30),
                   ),
                   padding:
-                  const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
                   color: Theme.of(context).primaryColor,
                   textColor: Theme.of(context).accentTextTheme.headline6!.color,
                   child: Text(_authMode == AuthMode.Login ? "LOGIN" : "SIGNUP"),
@@ -298,7 +299,7 @@ class _AuthCardState extends State<AuthCard>
                 FlatButton(
                   onPressed: switchAuthMode,
                   padding:
-                  const EdgeInsets.symmetric(vertical: 4, horizontal: 30),
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 30),
                   textColor: Theme.of(context).primaryColor,
                   child: Text(
                       '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
