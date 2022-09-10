@@ -33,6 +33,10 @@ flutter:
     - assets/images/facebook.webp
     - assets/images/gmail.png
     - assets/images/linkedIn.png
+    - assets/images/esraa.jpg
+    - assets/images/essam.jpg
+    - assets/images/mohammed.jpg
+    - assets/images/amira.jpg
 
   fonts:
     - family: Lato

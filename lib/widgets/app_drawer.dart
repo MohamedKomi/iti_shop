@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/screens/about_app_screen.dart';
+import 'package:shop_app/screens/about_us_screen.dart';
 
 import '../providers/auth.dart';
 import '../screens/orders_screen.dart';
@@ -42,7 +43,13 @@ class AppDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.info_outline),
               title: const Text("About the application"),
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AboutApplicationScreen(),
+                    ));
+              }),
           const Divider(),
           ListTile(
               leading: const Icon(Icons.group),
@@ -51,7 +58,7 @@ class AppDrawer extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AboutApplicationScreen(),
+                          builder: (context) => const AboutUsScreen(),
                         ))
                   }),
           const Divider(),
