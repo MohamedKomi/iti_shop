@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../screens/user_products_screen.dart';
-import '../screens/orders_screen.dart';
+import 'package:shop_app/screens/about_app_screen.dart';
+
 import '../providers/auth.dart';
+import '../screens/orders_screen.dart';
+import '../screens/user_products_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -38,15 +40,6 @@ class AppDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text("LogOut"),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed('/');
-                Provider.of<Auth>(context, listen: false).logout();
-              }),
-          const Divider(),
-          ListTile(
               leading: const Icon(Icons.info_outline),
               title: const Text("About the application"),
               onTap: () {}),
@@ -54,7 +47,22 @@ class AppDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.group),
               title: const Text("About the team "),
-              onTap: () => {}),
+              onTap: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AboutApplicationScreen(),
+                        ))
+                  }),
+          const Divider(),
+          ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("LogOut"),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/');
+                Provider.of<Auth>(context, listen: false).logout();
+              }),
         ],
       ),
     );

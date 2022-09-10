@@ -29,6 +29,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/product-placeholder.png
+    - assets/images/WhatsApp.jpg
+    - assets/images/facebook.webp
+    - assets/images/gmail.png
+    - assets/images/linkedIn.png
 
   fonts:
     - family: Lato
@@ -39,3 +43,4 @@ flutter:
     - family: Anton
       fonts:
         - asset: assets/fonts/Anton-Regular.ttf
+
