@@ -37,14 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Splash Screen ',
-            textAlign: TextAlign.right,
-            style: TextStyle(
-                color: Colors.pink, fontSize: 25, fontWeight: FontWeight.bold),
-          )
-        ],
+        children: [Image.asset('assets/images/logo.jpg')],
       ),
     );
   }

@@ -37,6 +37,7 @@ flutter:
     - assets/images/essam.jpg
     - assets/images/mohammed.jpg
     - assets/images/amira.jpg
+    - assets/images/logo.jpg
 
   fonts:
     - family: Lato
